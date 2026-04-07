@@ -1,8 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
-import { MOCK_CATEGORIES, MOCK_PRODUCTS } from '@/data/mock-catalog'
+import { MOCK_CATEGORIES, MOCK_PRODUCTS, MOCK_SECTIONS } from '@/data/mock-catalog'
 
-const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true'
+const USE_MOCK =
+  import.meta.env.VITE_USE_MOCK === 'true' ||
+  !import.meta.env.VITE_SUPABASE_URL
 
 export interface Section {
   id: string
@@ -50,6 +52,8 @@ export function useSections() {
   return useQuery({
     queryKey: ['sections'],
     queryFn: async () => {
+      if (USE_MOCK) return MOCK_SECTIONS as Section[]
+
       const { data, error } = await supabase
         .from('sections')
         .select('*')
@@ -126,6 +130,12 @@ export function useProductBySlug(slug: string) {
   return useQuery({
     queryKey: ['product', slug],
     queryFn: async () => {
+      if (USE_MOCK) {
+        const found = MOCK_PRODUCTS.find((p) => p.slug === slug)
+        if (!found) throw new Error(`Product "${slug}" not found`)
+        return found
+      }
+
       const { data, error } = await supabase
         .from('products')
         .select('*, category:categories!inner(slug, section:sections!inner(slug))')
@@ -145,6 +155,14 @@ export function useSearchProducts(queryStr: string) {
     queryFn: async () => {
       const q = queryStr.trim().toLowerCase()
       if (!q) return []
+
+      if (USE_MOCK) {
+        return MOCK_PRODUCTS.filter(
+          (p) =>
+            p.name.toLowerCase().includes(q) ||
+            (p.description && p.description.toLowerCase().includes(q))
+        ).slice(0, 20)
+      }
 
       const { data, error } = await supabase
         .from('products')

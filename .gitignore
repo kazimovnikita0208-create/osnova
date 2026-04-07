@@ -14,8 +14,10 @@ dist-ssr
 
 # Environment — никогда не пушить ключи
 .env
-.env.*
+.env.local
+.env.*.local
 !.env.example
+!.env.production
 
 # Сгенерированные файлы (кроме routeTree — нужен для сборки)
 .tanstack/

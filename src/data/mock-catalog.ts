@@ -9,6 +9,25 @@ import type { Category, Product } from '@/hooks/useCatalog'
 
 export const MOCK_COFFEE_SECTION_ID = 'section-coffee'
 
+export const MOCK_SECTIONS = [
+  {
+    id: MOCK_COFFEE_SECTION_ID,
+    slug: 'coffee',
+    name: 'Кофейня',
+    description: 'Кофе, чай, фреши и десерты',
+    image_url: null,
+    sort_order: 1,
+  },
+  {
+    id: 'section-gastronomy',
+    slug: 'gastronomy',
+    name: 'Гастроном',
+    description: 'Готовая еда и деликатесы',
+    image_url: null,
+    sort_order: 2,
+  },
+]
+
 // ── Категории ────────────────────────────────────────────────────────────────
 
 export const MOCK_CATEGORIES: (Category & { section: { slug: string } })[] = [
