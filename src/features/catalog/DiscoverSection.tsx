@@ -73,7 +73,7 @@ export const COFFEE_DISPLAY_GROUPS: DisplayGroup[] = [
     id: 'eda',
     label: 'Еда',
     icon: ICONS.food,
-    matchName: (name) => /кулинар|тиксон|фабрик/i.test(name),
+    matchName: (name) => /кулинар|тиксон|фабрик|готовая|еда/i.test(name),
   },
 ]
 
