@@ -2,9 +2,9 @@ import { useQuery } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
 import { MOCK_CATEGORIES, MOCK_PRODUCTS, MOCK_SECTIONS } from '@/data/mock-catalog'
 
-const USE_MOCK =
-  import.meta.env.VITE_USE_MOCK === 'true' ||
-  !import.meta.env.VITE_SUPABASE_URL
+// Демо-режим: всегда используем mock-данные
+// TODO: заменить на import.meta.env.VITE_USE_MOCK === 'true' при подключении Supabase
+const USE_MOCK = true
 
 export interface Section {
   id: string

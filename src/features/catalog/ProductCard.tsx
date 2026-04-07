@@ -19,11 +19,11 @@ const DEFAULT_COFFEE_OPTS = {
 export function ProductCard({ product }: ProductCardProps) {
   const isUnavailable = product.availability === 'out_of_stock'
   const isComingSoon = product.availability === 'coming_soon'
-  const isCoffee = product.categorySlug === 'coffee' || product.categorySlug === 'fresh'
+  const isDrink = ['coffee', 'fresh', 'kofe', 'chai', 'freshi'].includes(product.categorySlug)
 
   const { addItem, updateQuantity, items } = useCartStore()
 
-  const opts = isCoffee ? DEFAULT_COFFEE_OPTS : undefined
+  const opts = isDrink ? DEFAULT_COFFEE_OPTS : undefined
   const cartKey = buildCartKey(product.slug, opts)
   const cartItem = items.find((i) => i.key === cartKey)
   const qty = cartItem?.quantity ?? 0

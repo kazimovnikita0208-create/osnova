@@ -57,6 +57,7 @@ const OPTION_CONFIGS: Record<OptionKey, { title: string; options: OptionItem[] }
   },
 }
 
+const DRINK_SLUGS = new Set(['coffee', 'fresh', 'kofe', 'chai', 'freshi'])
 const MILK_PRICES: Record<string, number> = { Цельное: 0, Овсяное: 50, Соевое: 40, Миндальное: 60 }
 const SYRUP_PRICES: Record<string, number> = {
   'Без сиропа': 0, Ваниль: 30, Карамель: 30, 'Лесной орех': 30,
@@ -205,8 +206,6 @@ function ProductDetail() {
   const [openTile, setOpenTile] = useState<OptionKey | null>(null)
 
   const { addItem, items } = useCartStore()
-
-  const DRINK_SLUGS = new Set(['coffee', 'fresh', 'kofe', 'chai', 'freshi'])
 
   const totalPrice = useMemo(() => {
     if (!product) return 0
