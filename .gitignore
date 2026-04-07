@@ -17,9 +17,8 @@ dist-ssr
 .env.*
 !.env.example
 
-# Сгенерированные файлы
+# Сгенерированные файлы (кроме routeTree — нужен для сборки)
 .tanstack/
-src/routeTree.gen.ts
 
 # Editor directories and files
 .vscode/*
