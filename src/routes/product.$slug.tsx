@@ -206,10 +206,11 @@ function ProductDetail() {
 
   const { addItem, items } = useCartStore()
 
+  const DRINK_SLUGS = new Set(['coffee', 'fresh', 'kofe', 'chai', 'freshi'])
+
   const totalPrice = useMemo(() => {
     if (!product) return 0
-    const isCoffee = product.categorySlug === 'coffee' || product.categorySlug === 'fresh'
-    if (!isCoffee) return product.price
+    if (!DRINK_SLUGS.has(product.categorySlug)) return product.price
     return product.price + SIZES[sizeIdx].extra + MILK_PRICES[milk] + SYRUP_PRICES[syrup]
   }, [product, sizeIdx, milk, syrup])
 
@@ -234,12 +235,12 @@ function ProductDetail() {
     )
   }
 
-  const isCoffee = product.categorySlug === 'coffee' || product.categorySlug === 'fresh'
+  const isDrink = DRINK_SLUGS.has(product.categorySlug)
   const isComingSoon = product.availability === 'coming_soon'
   const milkExtra = MILK_PRICES[milk]
   const syrupExtra = SYRUP_PRICES[syrup]
 
-  const coffeeOpts = isCoffee
+  const coffeeOpts = isDrink
     ? { size: SIZES[sizeIdx].label, milk, syrup, temp, sugar }
     : undefined
   const cartKey = buildCartKey(product.slug, coffeeOpts)
@@ -301,12 +302,12 @@ function ProductDetail() {
         {/* Price row */}
         <div className="flex items-center justify-between mb-3 shrink-0">
           <span className="text-xl font-heading font-bold text-[#384527]">{totalPrice} ₽</span>
-          {isCoffee && (
+          {isDrink && (
             <span className="text-xs text-[#6b6960] bg-white px-3 py-1.5 rounded-full font-medium shadow-sm shadow-black/5">
               {SIZES[sizeIdx].ml} мл
             </span>
           )}
-          {!isCoffee && product.weight && (
+          {!isDrink && product.weight && (
             <span className="text-xs text-[#6b6960] bg-[#f0ede4] px-3 py-1.5 rounded-full font-medium">
               {product.weight} {product.weightUnit ?? 'г'}
             </span>
@@ -314,7 +315,7 @@ function ProductDetail() {
         </div>
 
         {/* ── Gastronomy info block ── */}
-        {!isCoffee && (
+        {!isDrink && (
           <div className="shrink-0">
             {/* Composition */}
             {product.composition && (
@@ -363,7 +364,7 @@ function ProductDetail() {
         )}
 
         {/* ── Coffee customisation block ── */}
-        {isCoffee && (
+        {isDrink && (
           <div className="shrink-0">
             <div className="grid grid-cols-4 gap-2">
               <OptionTile
@@ -420,7 +421,7 @@ function ProductDetail() {
         <div className="pb-[calc(0.75rem+env(safe-area-inset-bottom))] mt-3 shrink-0">
           {!isComingSoon ? (
             <div className="flex items-center gap-2.5">
-              {isCoffee && (
+              {isDrink && (
                 <div className="flex gap-1.5 shrink-0">
                   {SIZES.map((s, i) => (
                     <button
