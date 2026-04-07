@@ -1,17 +1,38 @@
 import { Icon, addCollection } from '@iconify/react'
-import streamlineData from '@iconify-json/streamline/icons.json'
 import { cn } from '@/lib/utils'
 
-// Регистрируем иконки локально — без запросов к API
-addCollection(streamlineData)
+// Регистрируем только 5 нужных иконок (вместо 1.8MB всего набора)
+// Streamline icon set — CC BY 4.0
+addCollection({
+  prefix: 'streamline',
+  width: 14,
+  height: 14,
+  icons: {
+    'coffee-mug': {
+      body: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M3 5.5h5a1 1 0 0 1 1 1v5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-5a1 1 0 0 1 1-1m6 1h.5a2.5 2.5 0 0 1 0 5H9M4 .5v2m3-2v2"/>',
+    },
+    'leaf': {
+      body: '<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11.51 5.391c2 2.817.47 6.043-.27 7.301a1.42 1.42 0 0 1-1 .66c-1.45.25-5.06.529-7-2.288c-1.91-2.656-1.83-7.33-1.66-9.558A1.048 1.048 0 0 1 3 .568c2.15.619 6.63 2.167 8.51 4.823"/><path d="M4.77 4.463a52 52 0 0 1 6 8.719"/></g>',
+    },
+    'milkshake': {
+      body: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M3.5 6.5V6a3.5 3.5 0 1 1 7 0v.5l-.434 6.071a1 1 0 0 1-.997.929H4.93a1 1 0 0 1-.997-.929zm-1 0h9M8.72 2.951L9.5.5M3.684 9h6.602"/>',
+    },
+    'cake-slice': {
+      body: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M12.5 6.5h-11a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1m-9 0a2 2 0 1 0 0-4a2 2 0 0 0 0 4m-3 3h13m-10-7s0-2 1.5-2"/>',
+    },
+    'serving-dome': {
+      body: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M7 3h0a6.5 6.5 0 0 1 6.5 6.5v0a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1v0A6.5 6.5 0 0 1 7 3Zm0 0V1.5m-6.5 11h13"/>',
+    },
+  },
+})
 
-// Имена иконок из набора Streamline (CC BY 4.0)
+// Короткие имена иконок
 const ICONS = {
   coffee: 'streamline:coffee-mug',
   tea:    'streamline:leaf',
   fresh:  'streamline:milkshake',
   dessert:'streamline:cake-slice',
-  food:   'streamline:food-kitchenware-serving-dome-cook-tool-dome-kitchen-serving-paltter-dish-tools-food',
+  food:   'streamline:serving-dome',
 } as const
 
 // ── Группы display-категорий ───────────────────────────────────────────────
