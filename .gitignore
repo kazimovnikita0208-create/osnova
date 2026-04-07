@@ -12,6 +12,15 @@ dist
 dist-ssr
 *.local
 
+# Environment — никогда не пушить ключи
+.env
+.env.*
+!.env.example
+
+# Сгенерированные файлы
+.tanstack/
+src/routeTree.gen.ts
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
